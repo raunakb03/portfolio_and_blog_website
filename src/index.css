@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Code Pro", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.z-index {
+  z-index: 1000;
+}
+
+.hero-background {
+  background: linear-gradient(
+      to right,
+      rgba(245, 245, 245, 0.8),
+      rgba(245, 245, 245, 0.8)
+    ),
+    url("/src/assets/common-bg.svg");
+}
+
+.button-shadow {
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.mouse::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: 7px;
+  left: 40%;
+  transform: translateX(-50%);
+  background-color: #333;
+  border-radius: 50%;
+  opacity: 1;
+  animation: wheel 1.3s infinite;
+  -webkit-animation: wheel 1.3s infinite;
+}
+
+.hello-animation {
+  transition: transform 1s ease-in-out;
+  animation: hello 1.3s infinite;
+}
+
+@keyframes hello {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  50% {
+    transform: rotateZ(45deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+@keyframes wheel {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 0.2;
+  }
+}
+
+@-webkit-keyframes wheel {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
