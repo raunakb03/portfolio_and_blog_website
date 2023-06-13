@@ -51,7 +51,7 @@ const Hero = () => {
         </div>
         <div className="text-center mt-[5rem]">
           <Link
-            className="bg-[#facf0f] text-[#333] text-[1.3rem] uppercase tracking-[2px] inline-block font-[800] rounded-[5px] button-shadow transition-transform duration-500 py-[1rem] px-[6rem] hover:-translate-y-[5px] hover:scale-[1.1]"
+            className="bg-[#facf0f] text-[#333] text-[1.3rem] uppercase tracking-[2px] inline-block font-[800] rounded-[5px] button-shadow transition-transform duration-[0.3s] py-[1rem] px-[6rem] hover:-translate-y-[5px] hover:scale-[1.1]"
             to="/"
           >
             RESUME
