@@ -6,7 +6,7 @@ const About = () => {
     "CSS",
     "JavaScript",
     "React",
-    "SASS",
+    "SCSS",
     "GIT",
     "Github",
     "Tailwind CSS",
