@@ -22,7 +22,7 @@ const CreateBlog = () => {
     textIndex: 0,
     imageIndex: 0,
     codeIndex: 0,
-    inputText: "",
+    inputText: "this is the input text",
     inputImage: null,
     inputCode: null,
   };
@@ -55,6 +55,16 @@ const CreateBlog = () => {
           showSelectInputSection: payload,
           showTextInputSection: true,
         };
+      case "TEXT_CHANGE":
+        return {
+          ...state,
+          inputText: payload,
+        };
+      case "IMAGE_CHANGE":
+        return {
+          ...state,
+          inputImage: payload,
+        };
       default:
         return state;
     }
@@ -76,6 +86,9 @@ const CreateBlog = () => {
     textIndex,
     imageIndex,
     codeIndex,
+    inputText,
+    inputImage,
+    inputCode,
   } = state;
 
   // uploading cover image in the cloudinary and getting image url
@@ -87,8 +100,6 @@ const CreateBlog = () => {
       console.log(error);
     }
   };
-
-  const handleInputChange = (e) => {};
 
   // blog object
   const blogObject = {
@@ -135,17 +146,19 @@ const CreateBlog = () => {
                 <p>Enter the text:</p>
                 <textarea
                   className="w-full"
-                  name="desc"
-                  id=""
+                  name="desc-input"
                   cols="30"
                   rows="10"
+                  value={inputText}
                   placeholder="Enter the text"
+                  onChange={(e) => {
+                    dispatch({
+                      type: "TEXT_CHANGE",
+                      payload: e.target.value,
+                    });
+                  }}
                 ></textarea>
-                <button
-                  name="text-input"
-                  onClick={handleInputChange}
-                  className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
-                >
+                <button className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]">
                   Add Text
                 </button>
               </div>
@@ -153,12 +166,17 @@ const CreateBlog = () => {
             {showImageInputSection && (
               <div className="flex flex-col justify-start items-start gap-4">
                 <p>Insert an Image:</p>
-                <input type="file" />
-                <button
+                <input
+                  type="file"
                   name="image-input"
-                  onClick={handleInputChange}
-                  className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
-                >
+                  onChange={(e) =>
+                    dispatch({
+                      type: "IMAGE_CHANGE",
+                      payload: e.target.files[0],
+                    })
+                  }
+                />
+                <button className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]">
                   Upload Image
                 </button>
               </div>
@@ -207,3 +225,5 @@ const CreateBlog = () => {
 };
 
 export default CreateBlog;
+
+// !TODO: on user clicking the button to add the text or image with current index, use onClick on the button to add the text or image in the blog object and also make the state null for these inputs and increase the index.
