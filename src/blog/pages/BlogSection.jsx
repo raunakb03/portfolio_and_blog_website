@@ -8,6 +8,9 @@ const BlogSection = ({ blogObject }) => {
           if (key.includes("coverImage")) {
             return <img key={i} src={value} />;
           }
+          if (key.startsWith("text")) {
+            return <p key={i}>{value}</p>;
+          }
         })}
       </div>
     </div>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import upload from "../../utils/upload";
 import BlogSection from "./BlogSection";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -22,7 +22,7 @@ const CreateBlog = () => {
     textIndex: 0,
     imageIndex: 0,
     codeIndex: 0,
-    inputText: "this is the input text",
+    inputText: "",
     inputImage: null,
     inputCode: null,
   };
@@ -53,7 +53,7 @@ const CreateBlog = () => {
         return {
           ...state,
           showSelectInputSection: payload,
-          showTextInputSection: true,
+          showTextInputSection: payload === true ? true : false,
         };
       case "TEXT_CHANGE":
         return {
@@ -64,6 +64,11 @@ const CreateBlog = () => {
         return {
           ...state,
           inputImage: payload,
+        };
+      case "INCREASE_TEXT_INDEX":
+        return {
+          ...state,
+          textIndex: payload,
         };
       default:
         return state;
@@ -102,8 +107,17 @@ const CreateBlog = () => {
   };
 
   // blog object
-  const blogObject = {
-    coverImage: coverImageUrl,
+  const [blogObject, setblogObject] = useState({ coverImage: coverImageUrl });
+
+  const handleInputTextSubmit = (e) => {
+    e.preventDefault();
+    let index = textIndex;
+    let key = `text${index}`;
+    const newBlogObject = { ...blogObject, [key]: inputText };
+    setblogObject(newBlogObject);
+    dispatch({ type: "INCREASE_TEXT_INDEX", payload: textIndex + 1 });
+    dispatch({ type: "TEXT_CHANGE", payload: "" });
+    dispatch({ type: "SHOW_SELECT_INPUT_SECTION", payload: false });
   };
 
   return (
@@ -158,7 +172,10 @@ const CreateBlog = () => {
                     });
                   }}
                 ></textarea>
-                <button className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]">
+                <button
+                  className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
+                  onClick={handleInputTextSubmit}
+                >
                   Add Text
                 </button>
               </div>
