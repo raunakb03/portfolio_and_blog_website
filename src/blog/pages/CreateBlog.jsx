@@ -54,6 +54,8 @@ const CreateBlog = () => {
           ...state,
           showSelectInputSection: payload,
           showTextInputSection: payload === true ? true : false,
+          showImageInputSection: false,
+          showCodeInputSection: false,
         };
       case "TEXT_CHANGE":
         return {
@@ -69,6 +71,11 @@ const CreateBlog = () => {
         return {
           ...state,
           textIndex: payload,
+        };
+      case "INCREASE_IMAGE_INDEX":
+        return {
+          ...state,
+          imageIndex: payload,
         };
       default:
         return state;
@@ -96,27 +103,49 @@ const CreateBlog = () => {
     inputCode,
   } = state;
 
+  // blog object
+  const [blogObject, setblogObject] = useState(new Map());
+  blogObject.set("coverImage", coverImageUrl);
+
   // uploading cover image in the cloudinary and getting image url
   const handleCoverImageUpload = async () => {
     try {
       const url = await upload(coverImage);
       dispatch({ type: "COVER_IMAGE_URL", payload: url });
+      let newBlogObject = new Map(blogObject);
+      newBlogObject.set("coverImage", url);
+      setblogObject(newBlogObject);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // blog object
-  const [blogObject, setblogObject] = useState({ coverImage: coverImageUrl });
-
   const handleInputTextSubmit = (e) => {
     e.preventDefault();
+    if (inputText == "") {
+      // ! TODO: show a notification that text can't be empty
+      return;
+    }
     let index = textIndex;
     let key = `text${index}`;
-    const newBlogObject = { ...blogObject, [key]: inputText };
+    let newBlogObject = new Map(blogObject);
+    newBlogObject.set(key, inputText);
     setblogObject(newBlogObject);
     dispatch({ type: "INCREASE_TEXT_INDEX", payload: textIndex + 1 });
     dispatch({ type: "TEXT_CHANGE", payload: "" });
+    dispatch({ type: "SHOW_SELECT_INPUT_SECTION", payload: false });
+  };
+
+  const handleInputImageSubmit = async (e) => {
+    e.preventDefault();
+    let index = imageIndex;
+    let key = `image${index}`;
+    const url = await upload(inputImage);
+    let newBlogObject = new Map(blogObject);
+    newBlogObject.set(key, url);
+    setblogObject(newBlogObject);
+    dispatch({ type: "INCREASE_IMAGE_INDEX", payload: imageIndex + 1 });
+    dispatch({ type: "IMAGE_CHANGE", payload: null });
     dispatch({ type: "SHOW_SELECT_INPUT_SECTION", payload: false });
   };
 
@@ -156,51 +185,63 @@ const CreateBlog = () => {
             )}
             <hr />
             {showTextInputSection && (
-              <div className="flex flex-col justify-start items-start gap-4">
-                <p>Enter the text:</p>
-                <textarea
-                  className="w-full"
-                  name="desc-input"
-                  cols="30"
-                  rows="10"
-                  value={inputText}
-                  placeholder="Enter the text"
-                  onChange={(e) => {
-                    dispatch({
-                      type: "TEXT_CHANGE",
-                      payload: e.target.value,
-                    });
-                  }}
-                ></textarea>
-                <button
-                  className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
-                  onClick={handleInputTextSubmit}
-                >
-                  Add Text
-                </button>
-              </div>
+              <>
+                <div className="flex flex-col justify-start items-start gap-4">
+                  <p>Enter the text:</p>
+                  <textarea
+                    className="w-full"
+                    name="desc-input"
+                    cols="30"
+                    rows="10"
+                    value={inputText}
+                    placeholder="Enter the text"
+                    onChange={(e) => {
+                      dispatch({
+                        type: "TEXT_CHANGE",
+                        payload: e.target.value,
+                      });
+                    }}
+                  ></textarea>
+                  <button
+                    className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
+                    onClick={handleInputTextSubmit}
+                  >
+                    Add Text
+                  </button>
+                </div>
+                <hr />
+              </>
             )}
             {showImageInputSection && (
-              <div className="flex flex-col justify-start items-start gap-4">
-                <p>Insert an Image:</p>
-                <input
-                  type="file"
-                  name="image-input"
-                  onChange={(e) =>
-                    dispatch({
-                      type: "IMAGE_CHANGE",
-                      payload: e.target.files[0],
-                    })
-                  }
-                />
-                <button className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]">
-                  Upload Image
-                </button>
-              </div>
+              <>
+                <div className="flex flex-col justify-start items-start gap-4">
+                  <p>Insert an Image:</p>
+                  <input
+                    type="file"
+                    name="image-input"
+                    onChange={(e) =>
+                      dispatch({
+                        type: "IMAGE_CHANGE",
+                        payload: e.target.files[0],
+                      })
+                    }
+                  />
+                  <button
+                    className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
+                    onClick={handleInputImageSubmit}
+                  >
+                    Upload Image
+                  </button>
+                </div>
+                <hr />
+              </>
             )}
-            {showCodeInputSection && <h3>insert code</h3>}
+            {showCodeInputSection && (
+              <>
+                <h3>insert code</h3> <hr />
+              </>
+            )}
             {/* add a new input section element */}
-            <hr />
             <div className="flex flex-col justify-start items-start gap-4">
               <div
                 className="flex gap-4 align-middle justify-start items-center cursor-pointer w-fit"
@@ -242,5 +283,3 @@ const CreateBlog = () => {
 };
 
 export default CreateBlog;
-
-// !TODO: on user clicking the button to add the text or image with current index, use onClick on the button to add the text or image in the blog object and also make the state null for these inputs and increase the index.

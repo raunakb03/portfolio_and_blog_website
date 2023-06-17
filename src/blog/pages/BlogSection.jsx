@@ -4,12 +4,17 @@ const BlogSection = ({ blogObject }) => {
   return (
     <div>
       <div>
-        {Object.entries(blogObject).map(([key, value], i) => {
+        {[...blogObject].map(([key, value], i) => {
+          console.log("the key is ", key);
+          console.log("the type of key is ", typeof key);
           if (key.includes("coverImage")) {
             return <img key={i} src={value} />;
           }
           if (key.startsWith("text")) {
             return <p key={i}>{value}</p>;
+          }
+          if (key.includes("image")) {
+            return <img key={i} src={value} />;
           }
         })}
       </div>
