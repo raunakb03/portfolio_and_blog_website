@@ -6,12 +6,11 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { initialState, reducer } from "../reducers/blogReducer";
 
 const CreateBlog = () => {
-  
-  // reducer state
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // destructuring elements from the reducer state
   const {
+    blogTitle,
+    showTitleInputSection,
     coverImage,
     coverImageUrl,
     isCoverImagePresent,
@@ -28,12 +27,30 @@ const CreateBlog = () => {
     inputCode,
   } = state;
 
-  // blog object
   const [blogObject, setblogObject] = useState(new Map());
-  blogObject.set("coverImage", coverImageUrl);
 
-  // uploading cover image in the cloudinary and getting image url
+  const handleSetBlogTitle = (e) => {
+    e.preventDefault();
+    if (blogTitle === "") {
+      // ! TODO: show a notification that text can't be empty
+      return;
+    }
+    let newBlogObject = new Map(blogObject);
+    newBlogObject.set("blogTitle", blogTitle);
+    setblogObject(newBlogObject);
+    dispatch({
+      type: "SHOW_TITLE_INPUT_SECTION",
+      payload: false,
+    });
+  };
+
+  // blogObject.set("coverImage", coverImageUrl);
+
   const handleCoverImageUpload = async () => {
+    if (coverImage === null) {
+      // ! TODO: show the notification
+      return;
+    }
     try {
       const url = await upload(coverImage);
       dispatch({ type: "COVER_IMAGE_URL", payload: url });
@@ -85,28 +102,56 @@ const CreateBlog = () => {
           <BlogSection blogObject={blogObject} />
           {/* main div for the whole of input section */}
           <div className="flex flex-col gap-7">
+            {/* blog title section */}
+            {showTitleInputSection && (
+              <>
+                <div className="flex flex-col justify-start items-start gap-4">
+                  <h3>Enter Blog Title</h3>
+                  <input
+                    type="text"
+                    placeholder="Enter blog title..."
+                    value={blogTitle}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "BLOG_TITLE_CHANGE",
+                        payload: e.target.value,
+                      })
+                    }
+                  />
+                  <button
+                    className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
+                    onClick={handleSetBlogTitle}
+                  >
+                    Add Title
+                  </button>
+                </div>
+                <hr />
+              </>
+            )}
             {/* div for the cover image */}
             {!isCoverImagePresent && (
-              <div className="flex flex-col justify-start items-start gap-4">
-                <p className="text-[20px]">
-                  --{`>`}Select the cover image from the blog:
-                </p>
-                <input
-                  type="file"
-                  onChange={(e) =>
-                    dispatch({
-                      type: "INPUT_COVER_IMAGE",
-                      payload: e.target.files[0],
-                    })
-                  }
-                />
-                <button
-                  className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
-                  onClick={handleCoverImageUpload}
-                >
-                  Upload
-                </button>
-              </div>
+              <>
+                <div className="flex flex-col justify-start items-start gap-4">
+                  <p className="text-[20px]">
+                    Select the cover image from the blog:
+                  </p>
+                  <input
+                    type="file"
+                    onChange={(e) =>
+                      dispatch({
+                        type: "INPUT_COVER_IMAGE",
+                        payload: e.target.files[0],
+                      })
+                    }
+                  />
+                  <button
+                    className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
+                    onClick={handleCoverImageUpload}
+                  >
+                    Upload
+                  </button>
+                </div>
+              </>
             )}
             <hr />
             {showTextInputSection && (

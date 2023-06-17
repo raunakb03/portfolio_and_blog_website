@@ -6,7 +6,7 @@ const AddBlog = () => {
     <div className="w-full">
       <Link
         to="/create-blog"
-        className="w-[50%] p-4 mx-auto flex align-middle justify-center gap-5 cursor-pointer text-2xl"
+        className="w-[50%] mt-[90px] p-4 mx-auto flex align-middle justify-center gap-5 cursor-pointer text-2xl"
       >
         <div className="flex align-middle justify-center text-center pt-1">
           <IoIosCreate />

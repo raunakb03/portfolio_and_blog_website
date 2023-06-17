@@ -1,12 +1,14 @@
 // initial state
 // setting temp data
 export const initialState = {
+  blogTitle: "",
+  showTitleInputSection: true,
   coverImage: null,
   coverImageUploading: false,
-  // coverImageUrl: null,
-  coverImageUrl:
-    "https://res.cloudinary.com/dmnosl5ir/image/upload/v1686767005/fiverr/rj6d1r9sl1bew2efhsso.png",
-  isCoverImagePresent: true,
+  coverImageUrl: null,
+  // coverImageUrl:
+  //   "https://res.cloudinary.com/dmnosl5ir/image/upload/v1686767005/fiverr/rj6d1r9sl1bew2efhsso.png",
+  isCoverImagePresent: false,
   showSelectInputSection: false,
   currentInputType: "text",
   showTextInputSection: false,
@@ -22,6 +24,16 @@ export const initialState = {
 
 export function reducer(state, { type, payload }) {
   switch (type) {
+    case "BLOG_TITLE_CHANGE":
+      return {
+        ...state,
+        blogTitle: payload,
+      };
+    case "SHOW_TITLE_INPUT_SECTION":
+      return {
+        ...state,
+        showTitleInputSection: payload,
+      };
     case "INPUT_COVER_IMAGE":
       return {
         ...state,

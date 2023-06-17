@@ -3,18 +3,19 @@
 const BlogSection = ({ blogObject }) => {
   return (
     <div>
-      <div>
+      <div className="flex flex-col gap-4 align-middle justify-center items-start">
         {[...blogObject].map(([key, value], i) => {
-          console.log("the key is ", key);
-          console.log("the type of key is ", typeof key);
+          if (key.includes("blogTitle")) {
+            return <h1 className="text-[25px] font-bold" key={i}>{value}</h1>;
+          }
           if (key.includes("coverImage")) {
-            return <img key={i} src={value} />;
+            return <div className="mb-20" key={i} ><img className="w-[80%]" src={value} /></div>;
           }
           if (key.startsWith("text")) {
-            return <p key={i}>{value}</p>;
+            return <p className="text-[20px] mb-6" key={i}>{value}</p>;
           }
           if (key.includes("image")) {
-            return <img key={i} src={value} />;
+            return <div className="w-[50%] h-auto mb-6" key={i}><img className="w-full h-full" src={value} /></div>;
           }
         })}
       </div>
