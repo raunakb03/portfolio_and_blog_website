@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import User from '../models/userModel.js';
 import asyncHandler from 'express-async-handler';
+import generateToken from '../utils/token.js';
 
 //create new user
 const createUser = asyncHandler(async (req, res) => {
@@ -17,6 +18,7 @@ const createUser = asyncHandler(async (req, res) => {
     });
 
     await user.save();
+    generateToken(res, user._id);
     return res.status(200).json({
         msg: "User Created Successfully!!!",
         user
@@ -37,14 +39,26 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new Error("Invalid Credentials");
     }
     let { password: enteredPassword, ...resUser } = user;
+    generateToken(res, user._id);
     return res.status(200).json({
         msg: "Logged In Successfully!!!",
-        user:resUser._doc,
+        user: resUser._doc,
     });
 });
+
+// logout user
+const logoutUser = (req, res) => {
+    res.cookie('jwt', '', {
+        httpOnly: true,
+        expires: new Date(0),
+    });
+    res.status(200).json({ msg: 'Logged out successfully' });
+};
+
 
 
 export {
     createUser,
     loginUser,
+    logoutUser,
 }

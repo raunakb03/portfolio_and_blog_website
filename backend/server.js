@@ -8,18 +8,24 @@ import blogRouter from './routes/blogRoutes.js';
 import userRouter from './routes/userRoute.js';
 import cors from 'cors'
 import { errorHandler, notFound } from './middlewares/error.js';
-
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// connecting to database
 connectDb();
 
+// middlewares
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// routes
 app.use('/api/user', userRouter);
 app.use('/api/blog', blogRouter);
 
+// error handlers
 app.use(notFound);
 app.use(errorHandler);
 
