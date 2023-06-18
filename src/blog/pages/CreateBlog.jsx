@@ -4,6 +4,7 @@ import upload from "../../utils/upload";
 import BlogSection from "./BlogSection";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { initialState, reducer } from "../reducers/blogReducer";
+import axios from "axios";
 
 const CreateBlog = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -89,6 +90,30 @@ const CreateBlog = () => {
     dispatch({ type: "INCREASE_IMAGE_INDEX", payload: imageIndex + 1 });
     dispatch({ type: "IMAGE_CHANGE", payload: null });
     dispatch({ type: "SHOW_SELECT_INPUT_SECTION", payload: false });
+  };
+
+  const createBlogHandler = async (e) => {
+    e.preventDefault();
+    const blogData = Object.fromEntries(blogObject);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    console.log(blogData);
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/blog",
+        { blogContent: blogData },
+        config
+      );
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -246,6 +271,7 @@ const CreateBlog = () => {
               )}
             </div>
           </div>
+          <button onClick={createBlogHandler}>Create Blog</button>
         </div>
       </div>
     </div>
