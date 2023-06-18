@@ -5,6 +5,10 @@ import BlogSection from "./BlogSection";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { initialState, reducer } from "../reducers/blogReducer";
 import axios from "axios";
+import {
+  showToastDangerMessage,
+  showToastSuccessMessage,
+} from "../../utils/Toast";
 
 const CreateBlog = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -33,7 +37,8 @@ const CreateBlog = () => {
   const handleSetBlogTitle = (e) => {
     e.preventDefault();
     if (blogTitle === "") {
-      // ! TODO: show a notification that text can't be empty
+      console.log("exe");
+      showToastDangerMessage("Title can't be empty!!!");
       return;
     }
     let newBlogObject = new Map(blogObject);
@@ -43,13 +48,14 @@ const CreateBlog = () => {
       type: "SHOW_TITLE_INPUT_SECTION",
       payload: false,
     });
+    showToastSuccessMessage("Blog Title Added!!!");
   };
 
   // blogObject.set("coverImage", coverImageUrl);
 
   const handleCoverImageUpload = async () => {
     if (coverImage === null) {
-      // ! TODO: show the notification
+      showToastDangerMessage("Please upload a cover image!!!");
       return;
     }
     try {
@@ -58,15 +64,17 @@ const CreateBlog = () => {
       let newBlogObject = new Map(blogObject);
       newBlogObject.set("coverImage", url);
       setblogObject(newBlogObject);
+      showToastSuccessMessage("Cover Image Uploaded Successfully!!!");
     } catch (error) {
       console.log(error);
+      showToastDangerMessage("There was an error uploading the cover image!!!");
     }
   };
 
   const handleInputTextSubmit = (e) => {
     e.preventDefault();
     if (inputText == "") {
-      // ! TODO: show a notification that text can't be empty
+      showToastDangerMessage("Blog Text Can't Be Empty!!!");
       return;
     }
     let index = textIndex;
@@ -77,6 +85,7 @@ const CreateBlog = () => {
     dispatch({ type: "INCREASE_TEXT_INDEX", payload: textIndex + 1 });
     dispatch({ type: "TEXT_CHANGE", payload: "" });
     dispatch({ type: "SHOW_SELECT_INPUT_SECTION", payload: false });
+    showToastSuccessMessage("Text Added Successfully!!!");
   };
 
   const handleInputImageSubmit = async (e) => {
@@ -271,7 +280,12 @@ const CreateBlog = () => {
               )}
             </div>
           </div>
-          <button onClick={createBlogHandler}>Create Blog</button>
+          <button
+            className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
+            onClick={createBlogHandler}
+          >
+            Create Blog
+          </button>
         </div>
       </div>
     </div>

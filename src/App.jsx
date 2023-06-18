@@ -3,11 +3,14 @@ import Blog from "./blog/Blog";
 import CreateBlog from "./blog/pages/CreateBlog";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
     <BrowserRouter>
       <div>
+        <ToastContainer theme="colored"  />
         <Navbar />
         <Routes>
           <Route path="/" element={<Portfolio />} />
