@@ -4,7 +4,8 @@ export const initialState = {
   blogTitle: "",
   showTitleInputSection: true,
   coverImage: null,
-  coverImageUploading: false,
+  isLoading: false,
+  createBlogLoading: false,
   coverImageUrl: null,
   // coverImageUrl:
   //   "https://res.cloudinary.com/dmnosl5ir/image/upload/v1686767005/fiverr/rj6d1r9sl1bew2efhsso.png",
@@ -24,6 +25,16 @@ export const initialState = {
 
 export function reducer(state, { type, payload }) {
   switch (type) {
+    case "SET_LOADING":
+      return {
+        ...state,
+        isLoading: payload,
+      };
+      case "CREATE_BLOG_LOADING":
+        return {
+          ...state,
+          createBlogLoading: payload,
+        };
     case "BLOG_TITLE_CHANGE":
       return {
         ...state,

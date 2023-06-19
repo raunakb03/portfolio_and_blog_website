@@ -9,6 +9,7 @@ import {
   showToastDangerMessage,
   showToastSuccessMessage,
 } from "../../utils/Toast";
+import { Oval } from "react-loader-spinner";
 
 const CreateBlog = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -18,6 +19,8 @@ const CreateBlog = () => {
     showTitleInputSection,
     coverImage,
     coverImageUrl,
+    isLoading,
+    createBlogLoading,
     isCoverImagePresent,
     showSelectInputSection,
     showTextInputSection,
@@ -58,6 +61,10 @@ const CreateBlog = () => {
       showToastDangerMessage("Please upload a cover image!!!");
       return;
     }
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    });
     try {
       const url = await upload(coverImage);
       dispatch({ type: "COVER_IMAGE_URL", payload: url });
@@ -69,6 +76,10 @@ const CreateBlog = () => {
       console.log(error);
       showToastDangerMessage("There was an error uploading the cover image!!!");
     }
+    dispatch({
+      type: "SET_LOADING",
+      payload: false,
+    });
   };
 
   const handleInputTextSubmit = (e) => {
@@ -89,28 +100,47 @@ const CreateBlog = () => {
   };
 
   const handleInputImageSubmit = async (e) => {
-    e.preventDefault();
-    let index = imageIndex;
-    let key = `image${index}`;
-    const url = await upload(inputImage);
-    let newBlogObject = new Map(blogObject);
-    newBlogObject.set(key, url);
-    setblogObject(newBlogObject);
-    dispatch({ type: "INCREASE_IMAGE_INDEX", payload: imageIndex + 1 });
-    dispatch({ type: "IMAGE_CHANGE", payload: null });
-    dispatch({ type: "SHOW_SELECT_INPUT_SECTION", payload: false });
+    if (inputImage === null) {
+      showToastDangerMessage("Please upload a cover image!!!");
+      return;
+    }
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    });
+    try {
+      e.preventDefault();
+      let index = imageIndex;
+      let key = `image${index}`;
+      const url = await upload(inputImage);
+      let newBlogObject = new Map(blogObject);
+      newBlogObject.set(key, url);
+      setblogObject(newBlogObject);
+      dispatch({ type: "INCREASE_IMAGE_INDEX", payload: imageIndex + 1 });
+      dispatch({ type: "IMAGE_CHANGE", payload: null });
+      dispatch({ type: "SHOW_SELECT_INPUT_SECTION", payload: false });
+    } catch (error) {
+      console.log(error);
+      showToastDangerMessage("There was an error uploading the cover image!!!");
+    }
+    dispatch({
+      type: "SET_LOADING",
+      payload: false,
+    });
   };
 
   const createBlogHandler = async (e) => {
     e.preventDefault();
+    dispatch({
+      type: "CREATE_BLOG_LOADING",
+      payload: true,
+    });
     const blogData = Object.fromEntries(blogObject);
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-
-    console.log(blogData);
 
     try {
       const { data } = await axios.post(
@@ -122,7 +152,12 @@ const CreateBlog = () => {
       console.log(data);
     } catch (error) {
       console.log(error);
+      showToastDangerMessage("There was an error creating the blog!!!");
     }
+    dispatch({
+      type: "CREATE_BLOG_LOADING",
+      payload: false,
+    });
   };
 
   return (
@@ -166,7 +201,7 @@ const CreateBlog = () => {
             {!isCoverImagePresent && (
               <>
                 <div className="flex flex-col justify-start items-start gap-4">
-                  <p className="text-[20px]">
+                  <p>
                     Select the cover image from the blog:
                   </p>
                   <input
@@ -181,8 +216,24 @@ const CreateBlog = () => {
                   <button
                     className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
                     onClick={handleCoverImageUpload}
+                    disabled={isLoading}
                   >
-                    Upload
+                    {isLoading ? (
+                      <Oval
+                        height={30}
+                        width={30}
+                        color="#000"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#fff"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                      />
+                    ) : (
+                      "upload"
+                    )}
                   </button>
                 </div>
               </>
@@ -233,8 +284,24 @@ const CreateBlog = () => {
                   <button
                     className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
                     onClick={handleInputImageSubmit}
+                    disabled={isLoading}
                   >
-                    Upload Image
+                    {isLoading ? (
+                      <Oval
+                        height={30}
+                        width={30}
+                        color="#000"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#fff"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                      />
+                    ) : (
+                      "upload"
+                    )}
                   </button>
                 </div>
                 <hr />
@@ -281,10 +348,26 @@ const CreateBlog = () => {
             </div>
           </div>
           <button
-            className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1]"
+            className="p-3 px-8 bg-[#facf0f] rounded-[10px] transition-transform duration-[0.3s] hover:-translate-y-[3px] hover:scale-[1.1] flex justify-center items-center"
             onClick={createBlogHandler}
+            disabled={createBlogLoading || isLoading}
           >
-            Create Blog
+            {createBlogLoading ? (
+                      <Oval
+                        height={30}
+                        width={30}
+                        color="#000"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#fff"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                      />
+                    ) : (
+                      "Create Blog"
+                    )}
           </button>
         </div>
       </div>
