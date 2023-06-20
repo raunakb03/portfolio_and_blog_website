@@ -1,10 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { showToastDangerMessage } from "../../utils/Toast";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  showToastDangerMessage,
+  showToastSuccessMessage,
+} from "../../utils/Toast";
 import axios from "axios";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -37,29 +42,29 @@ const Register = () => {
       showToastDangerMessage("Confirm password does not password");
       return;
     }
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      };
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/user/register`,
+        userData,
+        config
+      );
 
-    console.log(process.env.BASE_URL)
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   };
-    //   const { data } = await axios.post(
-    //     `${process.env.API_URL}/api/register`,
-    //     userData,
-    //     config
-    //   );
-      
-    //   console.log(data);
-    // } catch (error) {
-    //     console.log(error);
-    // }
+      showToastSuccessMessage("User registered successfully");
+      navigate("/login");
+    } catch (error) {
+      showToastDangerMessage(error.response.data.message);
+    }
   };
 
   return (
-    <div className="flex align-middle justify-center items-center w-[100vw] h-[100vh] z-[50] linear-gradient-class">
-      <div className="bg-[#fff] w-2/3 md:w-1/2 form-shadow p-8 md:p-16 rounded-[10px]">
+    <div className="flex align-middle justify-center items-center w-[100vw] h-[100vh] min-h-fit z-[50] linear-gradient-class">
+      <div className="bg-[#fff] mt-[80px] w-2/3 md:w-1/2 form-shadow p-8 md:p-16 rounded-[10px]">
         <h1 className="m-auto w-fit mb-10 text-2xl font-bold">Register</h1>
         <form
           onSubmit={formSubmitHandler}

@@ -116,3 +116,7 @@ input:active {
     #f5f5f5
   );
 }
+
+.container-height {
+  height: calc(100vh - 80px);
+}

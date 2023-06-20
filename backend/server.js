@@ -16,7 +16,17 @@ dotenv.config();
 connectDb();
 
 // middlewares
-app.use(cors());
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1",
+        "http://104.142.122.231",
+    ],
+    credentials: true,
+    exposedHeaders: ["set-cookie"],
+}
+));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
