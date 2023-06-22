@@ -39,10 +39,11 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new Error("Invalid Credentials");
     }
     let { password: enteredPassword, ...resUser } = user;
+    let { password: userPassword, ...responseUser } = resUser._doc;
     generateToken(res, user._id);
     return res.status(200).json({
         msg: "Logged In Successfully!!!",
-        user: resUser._doc,
+        user: responseUser,
     });
 });
 

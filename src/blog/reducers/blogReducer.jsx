@@ -10,6 +10,8 @@ export const initialState = {
   // coverImageUrl:
   //   "https://res.cloudinary.com/dmnosl5ir/image/upload/v1686767005/fiverr/rj6d1r9sl1bew2efhsso.png",
   isCoverImagePresent: false,
+  blogCategory: "",
+  showBlogCategorySection: true,
   showSelectInputSection: false,
   currentInputType: "text",
   showTextInputSection: false,
@@ -30,11 +32,22 @@ export function reducer(state, { type, payload }) {
         ...state,
         isLoading: payload,
       };
-      case "CREATE_BLOG_LOADING":
-        return {
-          ...state,
-          createBlogLoading: payload,
-        };
+    case "CREATE_BLOG_LOADING":
+      return {
+        ...state,
+        createBlogLoading: payload,
+      };
+
+    case "SHOW_CATEGORY_INPUT_SECTION":
+      return {
+        ...state,
+        showBlogCategorySection: false,
+      };
+    case "ADD_BLOG_CATEGORY":
+      return {
+        ...state,
+        blogCategory: payload,
+      };
     case "BLOG_TITLE_CHANGE":
       return {
         ...state,

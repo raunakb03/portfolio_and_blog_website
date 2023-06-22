@@ -6,9 +6,14 @@ import {
   showToastSuccessMessage,
 } from "../../utils/Toast";
 import axios from "axios";
+import GetUser from "../context/userContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const user = GetUser();
+  if (user) {
+    navigate("/blog");
+  }
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -40,15 +45,15 @@ const Login = () => {
 
       localStorage.setItem("userData", JSON.stringify(data.user));
       showToastSuccessMessage("Login Success");
-      navigate('/blog')
+      navigate("/blog");
     } catch (error) {
       showToastDangerMessage(error.response.data.message);
     }
   };
 
   return (
-    <div className="flex align-middle justify-center items-center w-[100vw] h-[100vh] min-h-fit z-[50] linear-gradient-class">
-      <div className="bg-[#fff] mt-[80px] w-2/3 md:w-1/2 form-shadow p-8 md:p-16 rounded-[10px]">
+    <div className="flex mt-[90px] align-middle justify-center items-center w-[100vw] h-[100vh] min-h-fit z-[50] linear-gradient-class">
+      <div className="bg-[#fff] w-2/3 md:w-1/2 form-shadow p-8 md:p-16 rounded-[10px]">
         <h1 className="m-auto w-fit mb-10 text-2xl font-bold">Login</h1>
         <form
           onSubmit={formSubmitHandler}

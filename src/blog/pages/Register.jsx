@@ -7,9 +7,14 @@ import {
   showToastSuccessMessage,
 } from "../../utils/Toast";
 import axios from "axios";
+import GetUser from "../context/userContext";
 
 const Register = () => {
   const navigate = useNavigate();
+  const user = GetUser();
+  if (user) {
+    navigate("/blog");
+  }
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -63,8 +68,8 @@ const Register = () => {
   };
 
   return (
-    <div className="flex align-middle justify-center items-center w-[100vw] h-[100vh] min-h-fit z-[50] linear-gradient-class">
-      <div className="bg-[#fff] mt-[80px] w-2/3 md:w-1/2 form-shadow p-8 md:p-16 rounded-[10px]">
+    <div className="flex mt-[90px] align-middle justify-center items-center w-[100vw] h-[100vh] min-h-fit z-[50] linear-gradient-class">
+      <div className="bg-[#fff] w-2/3 md:w-1/2 form-shadow p-8 md:p-16 rounded-[10px]">
         <h1 className="m-auto w-fit mb-10 text-2xl font-bold">Register</h1>
         <form
           onSubmit={formSubmitHandler}

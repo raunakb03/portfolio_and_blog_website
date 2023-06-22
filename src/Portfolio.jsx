@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 
 const Portfolio = () => {
   return (
-    <div>
+    <div className="mt-[90px]">
       <Hero />
       <About />
     </div>

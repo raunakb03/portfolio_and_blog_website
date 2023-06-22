@@ -2,6 +2,15 @@
 import mongoose from 'mongoose';
 
 const BlogSchema = new mongoose.Schema({
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
     blogContent: {
         type: Object,
         required: true,
@@ -10,7 +19,6 @@ const BlogSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-
 }, {
     timestamps: true,
 });
