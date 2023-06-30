@@ -7,12 +7,7 @@ const projects = [
     img: "src/assets/portfolio-preview.png",
     title: "DevFolio",
     description: `DevFolio is my personal portfolio website. It is a simple mobile responsive website build using Reactjs and Tailwind CSS that I build to showcase my work.`,
-    stack: [
-      "HTML",
-      "JavaScript",
-      "TailwindCSS",
-      "React",
-    ],
+    stack: ["HTML", "JavaScript", "TailwindCSS", "React"],
     deployed: "https://raunak-devconnect.netlify.app",
     github: "",
   },
@@ -21,43 +16,7 @@ const projects = [
     title: "DevConnector",
     description: `DevConnector is a web
     application which allows developers to created posts and like or
-    dislike other${`'`}s post and write a comment on their pos.`,
-    stack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node Js",
-      "Redux",
-      "MongoDb",
-    ],
-    deployed: "https://raunak-devconnect.netlify.app",
-    github: "",
-  },
-  {
-    img: "src/assets/devconnect-preview.png",
-    title: "DevConnector",
-    description: `DevConnector is a web
-    application which allows developers to created posts and like or
-    dislike other${`'`}s post and write a comment on their pos.`,
-    stack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node Js",
-      "Redux",
-      "MongoDb",
-    ],
-    deployed: "https://raunak-devconnect.netlify.app",
-    github: "",
-  },
-  {
-    img: "src/assets/devconnect-preview.png",
-    title: "DevConnector",
-    description: `DevConnector is a web
-    application which allows developers to created posts and like or
-    dislike other${`'`}s post and write a comment on their pos.`,
+    dislike other${`'`}s post and write a comment on their post.`,
     stack: [
       "HTML",
       "CSS",
@@ -76,12 +35,12 @@ const Projects = () => {
   return (
     <div className="leading-[1.3] py-40 w-[100vw]" id="about">
       <div className="w-full mx-auto max-w-[1250px]">
-        <div className="w-full px-40 flex flex-col gap-7 mb-[6rem]">
+        <div className="w-full px-[5rem] md:px-40 flex flex-col gap-7 mb-[6rem]">
           <h3 className="text-[2.5rem] block text-center font-[#111] tracking-[3px] font-[700]">
             PROJECTS
           </h3>
           <hr className="w-12 h-[5px] mx-auto bg-[#facf0f] rounded-[5px]" />
-          <p className="block text-center text-[#555] text-[1.2rem] font-[500] leading-[1.6] mx-auto max-w-[60rem]">
+          <p className="block text-start md:text-center text-[#555] text-[1.2rem] font-[500] leading-[1.6] mx-auto max-w-[60rem]">
             Here you will find some of the personal projects I created with each
             project containing the deployed link and github repository link
           </p>
@@ -89,7 +48,7 @@ const Projects = () => {
         {projects.map((project, ind) => (
           <>
             <div
-              className={`flex gap-8 justify-center align-middle items-center mb-[5rem] px-[2rem] lg:px-0 flex-col md:flex-row ${
+              className={`flex gap-8 justify-center align-middle items-center mb-[5rem] px-[2rem] lg:px-3 flex-col md:flex-row ${
                 ind & 1 ? "md:flex-row-reverse" : ""
               }`}
               key={ind}
