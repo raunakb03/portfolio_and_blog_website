@@ -36,7 +36,9 @@ const Contact = () => {
               <h1 className="text-[#666] text-[14px] font-bold mb-3 text-left">
                 Message
               </h1>
-              <textarea cols="30" rows="10"
+              <textarea
+                cols="30"
+                rows="10"
                 type="text"
                 placeholder="Enter Your Message"
                 className="text-[#333] p-3 w-full text-[16px] bg-[#f0f0f0] rounded-[5px]"
