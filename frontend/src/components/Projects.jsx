@@ -4,19 +4,14 @@ import { Link } from "react-router-dom";
 
 const projects = [
   {
-    img: "src/assets/devconnect-preview.png",
-    title: "DevConnector",
-    description: `DevConnector is a web
-    application which allows developers to created posts and like or
-    dislike other${`'`}s post and write a comment on their pos.`,
+    img: "src/assets/portfolio-preview.png",
+    title: "DevFolio",
+    description: `DevFolio is my personal portfolio website. It is a simple mobile responsive website build using Reactjs and Tailwind CSS that I build to showcase my work.`,
     stack: [
       "HTML",
-      "CSS",
       "JavaScript",
+      "TailwindCSS",
       "React",
-      "Node Js",
-      "Redux",
-      "MongoDb",
     ],
     deployed: "https://raunak-devconnect.netlify.app",
     github: "",
