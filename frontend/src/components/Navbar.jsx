@@ -39,25 +39,46 @@ const Navbar = () => {
         >
           <div
             className="absolute top-10 right-10 md:hidden text-[35px] cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(false)}
           >
             <FaTimes />
           </div>
-          <Link className="ease-out duration-500 hover:text-yellow-400" to="/">
+          <a
+            className="ease-out duration-500 hover:text-yellow-400"
+            href="#home"
+            onClick={() => setIsOpen(false)}
+          >
             HOME
-          </Link>
-          <Link className="ease-out duration-500 hover:text-yellow-400" to="/">
+          </a>
+          <a
+            className="ease-out duration-500 hover:text-yellow-400"
+            href="#about"
+            onClick={() => setIsOpen(false)}
+          >
             ABOUT
-          </Link>
-          <Link className="hover:text-yellow-400 ease-out duration-500" to="/">
+          </a>
+          <a
+            className="hover:text-yellow-400 ease-out duration-500"
+            href="#projects"
+            onClick={() => setIsOpen(false)}
+          >
             PROJECTS
-          </Link>
-          <Link className="hover:text-yellow-400 ease-out duration-500" to="/">
+          </a>
+
+          <Link
+            className="hover:text-yellow-400 ease-out duration-500"
+            to="/"
+            onClick={() => setIsOpen(false)}
+          >
             BLOG
           </Link>
-          <Link className="hover:text-yellow-400 ease-out duration-500" to="/">
+          <a
+            className="hover:text-yellow-400 ease-out duration-500"
+            href="#contact"
+            onClick={() => setIsOpen(false)}
+          >
             CONTACT
-          </Link>
+          </a>
         </div>
       </div>
     </nav>

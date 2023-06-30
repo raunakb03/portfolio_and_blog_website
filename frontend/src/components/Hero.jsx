@@ -4,36 +4,33 @@ import { SiCodeforces, SiLeetcode } from "react-icons/si";
 
 const Hero = () => {
   return (
-    <div className="w-screen h-screen relative z-50 hero-background">
+    <div className="w-screen h-screen relative z-50 hero-background" id="home">
       <div className="hidden md:flex translate-y-[-50%] absolute top-[50%] left-0 rounded-md flex-col gap-8 bg-white p-4">
         <div className="hover:scale-[1.1] duration-500 ease-out hover:text-yellow-400">
-          <Link
-            className="hover:scale-[1.1] duration-500 ease-out hover:text-yellow-400"
-            to="/"
-          >
+          <Link to="https://twitter.com/Raunakbhalotia" target="_blank">
             <FaTwitter size={35} />
           </Link>
         </div>
         <div className="hover:scale-[1.1] duration-500 ease-out hover:text-yellow-400">
-          <Link to="/">
+          <Link
+            to="https://www.linkedin.com/in/raunak-bhalotia-945b33229/"
+            target="_blank"
+          >
             <FaLinkedin size={35} />
           </Link>
         </div>
         <div className="hover:scale-[1.1] duration-500 ease-out hover:text-yellow-400">
-          <Link to="/">
+          <Link to="https://github.com/raunakb03" target="_blank">
             <FaGithub size={35} />
           </Link>
         </div>
         <div className="hover:scale-[1.1] duration-500 ease-out hover:text-yellow-400">
-          <Link to="/">
+          <Link to="https://codeforces.com/profile/rb003" target="_blank">
             <SiCodeforces size={35} />
           </Link>
         </div>
-        <div>
-          <Link
-            className="hover:scale-[1.1] duration-500 ease-out hover:text-yellow-400"
-            to="/"
-          >
+        <div className="hover:scale-[1.1] duration-500 ease-out hover:text-yellow-400">
+          <Link to="https://leetcode.com/raunakb03/" target="_blank">
             <SiLeetcode size={35} />
           </Link>
         </div>
@@ -47,7 +44,7 @@ const Hero = () => {
         </div>
         <div className="mt-[3rem] mx-auto font-[#333] text-[0.8rem] md:text-[1.3rem] text-center w-[100%] leading-[1.6]">
           A Full Stack Web Developer building Full Stack Websites and Web
-          Applications that leads to the success of the overall proudct
+          Applications that leads to the success of the overall prouduct
         </div>
         <div className="text-center mt-[5rem]">
           <Link

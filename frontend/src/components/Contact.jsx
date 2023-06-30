@@ -1,7 +1,7 @@
 const Contact = () => {
   return (
-    <div className="hero-background p-[3rem] md:p-[8rem]">
-      <div className="flex flex-col justify-center align-middle items-center">
+    <div className="hero-background p-[3rem] md:p-[8rem]" id="contact">
+      <div className="max-w-[1250px] mx-auto flex flex-col justify-center align-middle items-center">
         <div className="flex flex-col w-full align-middle justify-center items-center md:w-[90%]">
           <h1 className="font-bold text-[3rem] uppercase">Contact</h1>
           <div className="w-[3rem] h-1 bg-yellow-400 rounded-[5px] my-10"></div>

@@ -41,26 +41,28 @@ const About = () => {
                   Get to know me!
                 </h3>
                 <p className="text-[#666] text-[1.1rem] mb-12">
-                  {`I'm`} a <strong>Frontend Web Developer</strong> building the
-                  Front-end of Websites and Web Applications that leads to the
-                  success of the overall product. Check out some of my work in
-                  the <strong>Projects </strong>
+                  {`I'm`} a <strong>Full Stack Web Developer</strong> building
+                  the Websites and Web Applications that leads to the success of
+                  the overall product. Check out some of my work in the{" "}
+                  <a href="#projects" className="font-bold underline">
+                    Projects
+                  </a>{" "}
                   section.
-                  <span className="mb-4 block" />I also like sharing content
-                  related to the stuff that I have learned over the years in{" "}
-                  <span>Web Development</span> so it can help other people of
-                  the Dev Community. Feel free to Connect or Follow me on my{" "}
-                  <span className="text-[#facf0f] mx-[3px] font-bold underline">
-                    Linkedin
-                  </span>{" "}
-                  {` `}
-                  where I post useful content related to Web Development and
-                  Programming.
+                  <span className="mb-4 block" />I{`'`}m a student of{" "}
+                  <strong>Birla Institue of Technology, Mesra</strong>.
+                  Currently, I am in third year and I am from{" "}
+                  <strong>ECE</strong> branch. But my real passion lies in{" "}
+                  <span>Software</span> and <span>Technology</span>.{` `}
                   <span className="mb-4 block" />
-                  {`I'm`} open to <strong>Job</strong> opportunities where I can
+                  Current I am doing a part time internship at{" "}
+                  <strong>Mobbana</strong>, a chrome extension startup. I am
+                  always open to <strong>Job</strong> opportunities where I can
                   contribute, learn and grow. If you have a good opportunity
                   that matches my skills and experience then {`don't`} hesitate
-                  to <strong>contact </strong>
+                  to{" "}
+                  <a href="#contact" className="font-bold underline">
+                    contact
+                  </a>{" "}
                   me.
                 </p>
                 <div className="bg-[#facf0f] text-[#111] py-3 px-[3rem] inline-block text-[1.3rem] font-bold rounded-[5px] transition-transform duration-[0.3s] button-shadow hover:-translate-y-[5px] hover:scale-[1.1]">
