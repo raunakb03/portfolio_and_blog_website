@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./blog/pages/Register";
 import { UserContextProvider } from "./blog/context/userContext";
+import BlogPage from "./blog/pages/BlogPage";
 
 const App = () => {
   return (
@@ -18,7 +19,8 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<Portfolio />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/blogs" element={<Blog />} />
+            <Route path="/blogs/:id" element={<BlogPage />} />
             <Route path="/create-blog" element={<CreateBlog />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

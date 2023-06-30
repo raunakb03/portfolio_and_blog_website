@@ -56,10 +56,24 @@ const logoutUser = (req, res) => {
     res.status(200).json({ msg: 'Logged out successfully' });
 };
 
+// get a user by id
+const getUserById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id).select('-password');
+    if (!user) {
+        res.status(404);
+        throw new Error('User not found');
+    }
 
+    return res.status(200).json({
+        msg: 'User Found',
+        user
+    });
+})
 
 export {
     createUser,
     loginUser,
     logoutUser,
+    getUserById
 }
