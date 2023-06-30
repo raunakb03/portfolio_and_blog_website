@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/fade";
-import Slide from 'react-reveal/Slide';
+import Slide from "react-reveal/Slide";
 
 const About = () => {
   const mySkills = [
@@ -23,12 +23,12 @@ const About = () => {
     <Fade clear duration={2000}>
       <div className="leading-[1.3] bg-[#fafafa] py-40 w-[100vw]" id="about">
         <div className="w-full mx-auto max-w-[1250px]">
-          <div className="w-full px-40 flex flex-col gap-7 mb-[6rem]">
+          <div className="w-full px-[3rem] md:px-40 flex flex-col gap-7 mb-[6rem]">
             <h3 className="text-[2.5rem] block text-center font-[#111] tracking-[3px] font-[700]">
               ABOUT ME
             </h3>
             <hr className="w-12 h-[5px] mx-auto bg-[#facf0f] rounded-[5px]" />
-            <p className="block text-center text-[#555] text-[1.2rem] font-[500] leading-[1.6] mx-auto max-w-[60rem]">
+            <p className="block text-center text-[#555] text-[1rem] md:text-[1.2rem] font-[500] leading-[1.6] mx-auto max-w-[60rem] md:text-center text-start">
               Here you will find more information about me, what I do, and my
               current skills mostly in terms of programming and technology
             </p>
