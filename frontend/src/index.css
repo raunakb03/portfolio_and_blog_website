@@ -478,3 +478,18 @@ textarea {
   outline: none;
   resize: none;
 }
+
+.mobile-nav-display {
+  z-index: 1000;
+  position: absolute;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  transition: display 3s ease-in-out;
+}

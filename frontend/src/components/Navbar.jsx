@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="w-full bg-white fixed top-0 left-0 z-index">
-      <div className="max-w-[1250px]  flex justify-between mx-auto p-3">
+      <div className="flex max-w-[1250px] justify-between mx-auto p-3">
         <div className="flex justify-center items-center gap-3">
           <div className="w-16 h-16">
             <img
@@ -19,7 +22,27 @@ const Navbar = () => {
             {`<RAUNAK BHALOTIA/>`}
           </Link>
         </div>
-        <div className="flex items-center justify-around gap-[2rem] text-[1.2rem] font-bold">
+
+        {/* for mobile view */}
+        <div
+          className="flex md:hidden text-[35px] align-middle justify-center items-center cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <FaBars />
+        </div>
+
+        {/* for desktop view */}
+        <div
+          className={`${
+            isOpen && "mobile-nav-display"
+          } hidden md:flex items-center justify-around gap-[2rem] text-[1.2rem] font-bold`}
+        >
+          <div
+            className="absolute top-10 right-10 md:hidden text-[35px] cursor-pointer"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <FaTimes />
+          </div>
           <Link className="ease-out duration-500 hover:text-yellow-400" to="/">
             HOME
           </Link>
